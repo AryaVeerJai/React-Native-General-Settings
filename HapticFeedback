@@ -1,0 +1,80 @@
+To provide haptic feedback when clicking a button in a React Native application, you can use the `react-native-haptic-feedback` library. This library provides easy-to-use methods for triggering different types of haptic feedback on both iOS and Android devices.
+
+Here's how you can set it up and use it:
+
+### Step 1: Install the Library
+
+First, install the `react-native-haptic-feedback` library using either npm or yarn:
+
+```bash
+npm install react-native-haptic-feedback
+```
+
+or
+
+```bash
+yarn add react-native-haptic-feedback
+```
+
+### Step 2: Link the Library (for React Native versions below 0.60)
+
+If you are using a version of React Native below 0.60, you need to link the library manually:
+
+```bash
+react-native link react-native-haptic-feedback
+```
+
+For React Native 0.60 and above, autolinking should handle this step.
+
+### Step 3: Use the Library in Your Code
+
+Now you can use the library to trigger haptic feedback when a button is clicked. Here's an example:
+
+```javascript
+import React from 'react';
+import { View, Button, StyleSheet } from 'react-native';
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
+const App = () => {
+
+  const handleButtonPress = () => {
+    const options = {
+      enableVibrateFallback: true,
+      ignoreAndroidSystemSettings: false,
+    };
+
+    ReactNativeHapticFeedback.trigger("impactMedium", options);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Button title="Press me" onPress={handleButtonPress} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default App;
+```
+
+### Explanation
+
+1. **Import the Library**:
+   - Import `ReactNativeHapticFeedback` from `react-native-haptic-feedback`.
+
+2. **Handle Button Press**:
+   - Define a function `handleButtonPress` that triggers the haptic feedback using `ReactNativeHapticFeedback.trigger()`.
+   - The first argument to `trigger` specifies the type of haptic feedback. In this example, `"impactMedium"` is used. Other possible values include `"selection"`, `"impactLight"`, `"impactHeavy"`, `"notificationSuccess"`, `"notificationWarning"`, and `"notificationError"`.
+   - The second argument is an options object. `enableVibrateFallback: true` allows the device to vibrate if haptic feedback is not available. `ignoreAndroidSystemSettings: false` ensures the feedback respects the system settings.
+
+3. **Render the Button**:
+   - Render a `Button` component with an `onPress` prop set to `handleButtonPress`.
+
+This setup will provide haptic feedback whenever the button is pressed, enhancing the user experience with tactile feedback.
