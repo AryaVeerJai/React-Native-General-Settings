@@ -1,0 +1,106 @@
+# React Native Navigation Implementation
+
+In this guide, we'll walk through the steps to implement basic navigation in a React Native application using React Navigation. We'll create two screens, `HomeScreen` and `DetailScreen`, and set up navigation between them.
+
+## **Step 1:** Install React Navigation
+
+First, make sure you have React Navigation installed in your project. You can install it using npm or yarn:
+
+```bash
+# using npm
+npm install @react-navigation/native
+
+# OR using Yarn
+yarn add @react-navigation/native
+```
+
+After installing React Navigation, you'll need to install the dependencies for the specific navigation features you plan to use. For this example, we'll use stack navigation:
+
+```bash
+# using npm
+npm install @react-navigation/stack
+
+# OR using Yarn
+yarn add @react-navigation/stack
+```
+
+## **Step 2:** Create Navigation Container
+
+In your main application file (usually `App.js`), import the necessary components from React Navigation and create a navigation container:
+
+```javascript
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        {/* Define your screens here */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
+```
+
+## **Step 3:** Create Screens
+
+Create two screen components, `HomeScreen` and `DetailScreen`, each with their respective content:
+
+```javascript
+// HomeScreen.js
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Detail Screen"
+        onPress={() => navigation.navigate('Detail')}
+      />
+    </View>
+  );
+}
+
+export default HomeScreen;
+```
+
+```javascript
+// DetailScreen.js
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+
+function DetailScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Detail Screen</Text>
+      <Button
+        title="Go back to Home"
+        onPress={() => navigation.goBack()}
+      />
+    </View>
+  );
+}
+
+export default DetailScreen;
+```
+
+## **Step 4:** Define Screens in Navigator
+
+In the navigation container, define your screens inside the `Stack.Navigator` component:
+
+```javascript
+<Stack.Navigator initialRouteName="Home">
+  <Stack.Screen name="Home" component={HomeScreen} />
+  <Stack.Screen name="Detail" component={DetailScreen} />
+</Stack.Navigator>
+```
+
+Now, your basic navigation setup is complete. When you run your app, you should see the `HomeScreen` with a button that navigates to the `DetailScreen`, and a button on `DetailScreen` that navigates back to `HomeScreen`.
